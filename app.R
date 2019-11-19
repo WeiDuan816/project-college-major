@@ -1,5 +1,38 @@
 library(shiny)
 
+home_page <- tabPanel(
+  "Home", 
+  titlePanel(h1("Hierarchy In College Majors", align = "center")), 
+  fluidPage(
+    h4("Introduction"), 
+    p("Many people believe that majors can be categorized in one of two ways:
+      the ones that make money and the ones that don't. Because of this
+      categorization, a hierarchy has been made of the major system, where
+      the ones that lead to the highest paying jobs are on top and everything
+      else is beneath them. The problem that we want to analyze is this
+      currently existing hierarchy and whether or not your major determines
+      your income / employment status upon graduating. Through data, we hope
+      to investigate whether all the emphasis behind the importance of picking
+      particular majors to ensure higher incomes is valid."),
+    p("This issue affects many people, including college students, professors,
+      universities, and companies that hire employees directly out of college.
+      Often times these hirings use college major as an initial screening
+      process, but interviews also influence these decisions. Because of this,
+      more and more students are congregating to majors that 'make money' such
+      as STEM majors, and away from majors in the arts. Oftentimes, this
+      decreases the funding that particular departments receive, which can
+      affect the quality of their program."),
+    h4("Our Data Analysis Plan"),
+    p("We analyzed the problem by visualizing how different categories of
+    majors correlate to after-graduation employment opportunities, and how
+    the income levels vary among these categories. To do this, we used a bar
+    graph that compares the incomes of each major category that you choose
+    with each other. We also used pie charts for each individual major
+    category that compares employment and unemployment rates after graduation
+    within that category.")
+  )
+)
+
 visualization_page <- tabPanel(
   "Visualizations",
   titlePanel(h1("Visualizations", align = "center")),
@@ -53,6 +86,7 @@ conclusion_page <- tabPanel(
 
 ui <- navbarPage(
   "Hierarchy in College Majors",
+  home_page,
   visualization_page,
   conclusion_page
 )
