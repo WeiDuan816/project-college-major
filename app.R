@@ -1,4 +1,22 @@
 library(shiny)
+library(ggplot2)
+library(dplyr)
+library(ggthemes)
+library(extrafont)
+library(scales)
+library(stringr)
+
+df <- read.csv("major.csv", stringsAsFactors = FALSE) %>%
+  group_by(Major_category) %>%
+  summarize(total = sum(Total),
+            employed = sum(Employed),
+            employedFull = sum(Employed_full_time_year_round),
+            unemployed = sum(Unemployed)
+            )
+df[nrow(df) + 1, ] = c("All Categories", sum(df$total), sum(df$employed),
+                       sum(df$employedFull), sum(df$unemployed)) 
+df <- mutate(df, unemploymentRate = round(as.double(unemployed) / as.double(total), 4) * 100) %>%
+  mutate(category_abbr = word(Major_category, 1))
 
 home_page <- tabPanel(
   "Home", 
@@ -24,14 +42,14 @@ home_page <- tabPanel(
       affect the quality of their program."),
     h4("Our Data Analysis Plan"),
     p("We analyzed the problem by visualizing how different categories of
-    majors correlate to after-graduation employment opportunities, and how
-    the income levels vary among these categories. To do this, we used a bar
-    graph that compares the incomes of each major category that you choose
-    with each other. We also used pie charts for each individual major
-    category that compares employment and unemployment rates after graduation
-    within that category.")
-  )
-)
+      majors correlate to after-graduation employment opportunities, and how
+      the income levels vary among these categories. To do this, we used a bar
+      graph that compares the incomes of each major category that you choose
+      with each other. We also used pie charts for each individual major
+      category that compares employment and unemployment rates after graduation
+      within that category.")
+    )
+    )
 
 visualization_page <- tabPanel(
   "Visualizations",
@@ -39,7 +57,7 @@ visualization_page <- tabPanel(
   sidebarLayout(
     sidebarPanel(
       selectInput("data_category", label = "Select Category to Compare Majors",
-                  c("Income", "Employment Rates")),
+                  c("Employment Rates", "Income")),
          checkboxGroupInput("major_category", label = "Choose Majors to Visualize",
                   c("Agriculture & Natural Resources", "Arts","Business",
                     "Biology & Life Science", "Communications & Journalism",
@@ -51,9 +69,11 @@ visualization_page <- tabPanel(
       )
     ),
     mainPanel(
+      plotOutput("majorPlot"),
       p("These specific data visualizations methods are effective to represent the 
         data major surrounding majors because they are continous (income),
-        and rates (employment).")
+        and rates (employment). However, the rates can be converted into continuous 
+        variables by multiplying the rate by the total number of people in a major.")
     )
   )
 )
@@ -92,7 +112,19 @@ ui <- navbarPage(
 )
 
 server <- function(input, output) {
-  
+  output$majorPlot <- renderPlot({
+    categories <- input$major_category
+    categories[length(categories) + 1] = "All Categories"
+    plotdf <- df[match(categories, df$Major_category), ]
+    
+    ggplot() + geom_bar(aes(y = unemploymentRate, x = category_abbr, fill = as.double(total)),
+                        data = plotdf, stat = "identity") +
+      geom_text(data = plotdf, aes(x = category_abbr, y = unemploymentRate,
+                label = paste0(unemploymentRate, "%")), size = 5, color = "white",
+                vjust = 1.5) +
+      labs(x = "Major Category", y = "Unemployment Rate", fill = "Total Students in Major") +
+      ggtitle("Comparison of Majors by Unemployment Rate")
+  })
 }
 
 shinyApp(ui, server)
