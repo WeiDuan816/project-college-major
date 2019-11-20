@@ -78,6 +78,48 @@ visualization_page <- tabPanel(
   )
 )
 
+data_page <- tabPanel(
+  "Data",
+  titlePanel(h1("Data", align = "center")),
+  fluidPage(
+    h4("College Majors Dataset"),
+    p("This dataset provides information about recently graduated college students,
+      their majors, and their employment status.
+      It has 79,668,7996 observations and 11 attributes."),
+    h4("Graduate Student Majors Dataset"),
+    p("This dataset provides information about both recently graduated college students
+      and those attending graduate school. It provides information about their majors and
+      their employment status. It has 59,233,874 observations and 22 attributes."),
+    h4("Who created it?"),
+    p("The data were collected and organized by United States' Census Bureau"),
+    h4("Why was it created?"),
+    p("A college degree is never a guarantee of economic success.
+      But researchers believe that through careful choice of major,
+      students can take at least some steps toward boosting their odds.
+      Research has also shown that many schools do little push students to
+      make informed choices about what to study."),
+    h4("Where did you access it?"),
+    p("The data can be downloaded from the website - census.gov,
+      and we accessed through github."),
+    h4("What represents an “observation”?"),
+    p("Each observation represents a specific major, which contains information including
+      number of people, employment, income earnings, etc."),
+    h4("What “variables” does each observation have?"),
+    p("Specific majors, major catgories, number of people employed and unemployed,
+      and median, 25th percentile, 75th percentile income earnings. In addition,
+      graduate students dataset also has comparable data values for people
+      who do not have a graduate degree."),
+    h4("How big is the data set?
+       If it is a sub-set of a larger data set, how was the sub-set created?"),
+    p("The college major dataset contains 79,668,7996 observations and 11 attributes,
+      and the graduate students dataset contains 59,233,874 observations and
+      22 attributes."),
+    h4("If the data set represents people,
+       who has been included and who has been excluded?"),
+    p("Undergraduate and graduate students were included.")
+    )
+  )
+
 conclusion_page <- tabPanel(
   "Conclusion",
   titlePanel(h1("Conclusion", align = "center")),
@@ -108,6 +150,7 @@ ui <- navbarPage(
   "Hierarchy in College Majors",
   home_page,
   visualization_page,
+  data_page,
   conclusion_page
 )
 
