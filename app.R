@@ -172,6 +172,23 @@ conclusion_page <- tabPanel(
   )
 )
 
+# creates a page that contains teh about me information for the group members
+
+aboutme_page <-tabPanel(
+  "About Us", 
+  titlePanel(h1(align = "center")),
+  fluidPage(
+    h4("Matthew's Goals"),
+    p("I want to see how our team can use R and our other resources to take a dataset and create a complete analysis and report. It will be exciting to see a project that we make from start to finish. My personal roles involve ideation, communication/planning, and helping write code to analyze the data."),
+    h4("Wei's Goals"),
+    p("my personal goal is to learn how we can use R as well as other tools to produce an analysis, given the necessary data; how we can make the analysis visual and easy-understanding. My role is to help the team to achieve our goal by writing codes, giving feedback and making improvements."),
+    h4("Katie's Goals"),
+    p("I want to learn how we can use the R language in order to create an interesting way to look at this dataset. My role it to help bring out ideas together into one cohesive project and write code and help overall design an interesting project."),
+    h4("Julianne's Goals"),
+    p("My personal goal is to be able to analyze data and create data visualizations that are both clear and concise. My role is to contribute to the group assignment through writing code and also helping with the appearance of our final project.")
+  )                    
+)
+
 # creates the navigation bar at the top of the page with all the pages that
 # were created above
 ui <- navbarPage(
@@ -179,7 +196,8 @@ ui <- navbarPage(
   home_page,
   visualization_page,
   data_page,
-  conclusion_page
+  conclusion_page,
+  aboutme_page
 )
 
 # displays the plot shown in our visualizations page that takes in input
