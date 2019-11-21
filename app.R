@@ -5,7 +5,11 @@ library(ggthemes)
 library(extrafont)
 library(scales)
 library(stringr)
+library(lintr)
 
+# groups the database by major category, calculating new columns containing
+# information about the number of employed and unemployed to be used in the
+# data
 df <- read.csv("major.csv", stringsAsFactors = FALSE) %>%
   group_by(Major_category) %>%
   summarize(total = sum(Total),
@@ -13,16 +17,19 @@ df <- read.csv("major.csv", stringsAsFactors = FALSE) %>%
             employedFull = sum(Employed_full_time_year_round),
             unemployed = sum(Unemployed)
             )
-df[nrow(df) + 1, ] = c("All Categories", sum(df$total), sum(df$employed),
-                       sum(df$employedFull), sum(df$unemployed)) 
-df <- mutate(df, unemploymentRate = round(as.double(unemployed) / as.double(total), 4) * 100) %>%
+df[nrow(df) + 1, ] <- c("All Categories", sum(df$total), sum(df$employed),
+                       sum(df$employedFull), sum(df$unemployed))
+df <- mutate(df, unemploymentRate = round(as.double(unemployed) /
+                                            as.double(total), 4) * 100) %>%
   mutate(category_abbr = word(Major_category, 1))
 
+# creates the home page displayed on the application that includes
+# a brief introduction to our project
 home_page <- tabPanel(
-  "Home", 
-  titlePanel(h1("Hierarchy In College Majors", align = "center")), 
+  "Home",
+  titlePanel(h1("Hierarchy In College Majors", align = "center")),
   fluidPage(
-    h4("Introduction"), 
+    h4("Introduction"),
     p("Many people believe that majors can be categorized in one of two ways:
       the ones that make money and the ones that don't. Because of this
       categorization, a hierarchy has been made of the major system, where
@@ -49,8 +56,12 @@ home_page <- tabPanel(
       category that compares employment and unemployment rates after graduation
       within that category.")
     )
-    )
+)
 
+# creates a page where the data visualizations of this project will go, one
+# being a bar graph that compares employment rates across majors and another
+# being a series of pie charts that comapre the number of employed and
+# unemployed in each major.
 visualization_page <- tabPanel(
   "Visualizations",
   titlePanel(h1("Visualizations", align = "center")),
@@ -58,38 +69,43 @@ visualization_page <- tabPanel(
     sidebarPanel(
       selectInput("data_category", label = "Select Category to Compare Majors",
                   c("Employment Rates", "Income")),
-         checkboxGroupInput("major_category", label = "Choose Majors to Visualize",
-                  c("Agriculture & Natural Resources", "Arts","Business",
+         checkboxGroupInput("major_category", label = "Choose Majors to
+                            Visualize",
+                  c("Agriculture & Natural Resources", "Arts", "Business",
                     "Biology & Life Science", "Communications & Journalism",
-                    "Computers and Mathematics", "Education", "Engineering", "Health",
-                    "Humanities & Liberal Arts", "Industrial Arts & Consumer Services",
-                    "Interdisciplinary", "Law & Public Policy", "Physical Sciences",
-                    "Psychology & Social Work", "Social Science")
-        
+                    "Computers and Mathematics", "Education", "Engineering",
+                    "Health", "Humanities & Liberal Arts",
+                    "Industrial Arts & Consumer Services",
+                    "Interdisciplinary", "Law & Public Policy",
+                    "Physical Sciences", "Psychology & Social Work",
+                    "Social Science")
       )
     ),
     mainPanel(
-      plotOutput("majorPlot"),
-      p("These specific data visualizations methods are effective to represent the 
-        data major surrounding majors because they are continous (income),
-        and rates (employment). However, the rates can be converted into continuous 
-        variables by multiplying the rate by the total number of people in a major.")
+      plotOutput("major_plot"),
+      p("These specific data visualizations methods are effective to represent
+      the data major surrounding majors because they are continous (income),
+      and rates (employment). However, the rates can be converted into
+      continuous variables by multiplying the rate by the total number of
+      people in a major.")
     )
   )
 )
 
+# Includes information about the dataset that we chose
 data_page <- tabPanel(
   "Data",
   titlePanel(h1("Data", align = "center")),
   fluidPage(
     h4("College Majors Dataset"),
-    p("This dataset provides information about recently graduated college students,
-      their majors, and their employment status.
-      It has 79,668,7996 observations and 11 attributes."),
+    p("This dataset provides information about recently graduated college
+    students,their majors, and their employment status. It has 79,668,7996
+      observations and 11 attributes."),
     h4("Graduate Student Majors Dataset"),
-    p("This dataset provides information about both recently graduated college students
-      and those attending graduate school. It provides information about their majors and
-      their employment status. It has 59,233,874 observations and 22 attributes."),
+    p("This dataset provides information about both recently graduated college
+    students and those attending graduate school. It provides information
+    about their majors and their employment status. It has 59,233,874
+      observations and 22 attributes."),
     h4("Who created it?"),
     p("The data were collected and organized by United States' Census Bureau"),
     h4("Why was it created?"),
@@ -102,50 +118,59 @@ data_page <- tabPanel(
     p("The data can be downloaded from the website - census.gov,
       and we accessed through github."),
     h4("What represents an “observation”?"),
-    p("Each observation represents a specific major, which contains information including
-      number of people, employment, income earnings, etc."),
+    p("Each observation represents a specific major, which contains
+    information including number of people, employment,
+      income earnings, etc."),
     h4("What “variables” does each observation have?"),
-    p("Specific majors, major catgories, number of people employed and unemployed,
-      and median, 25th percentile, 75th percentile income earnings. In addition,
-      graduate students dataset also has comparable data values for people
-      who do not have a graduate degree."),
+    p("Specific majors, major catgories, number of people employed and
+    unemployed,and median, 25th percentile, 75th percentile income earnings.
+    In addition, graduate students dataset also has comparable data values
+    for people who do not have a graduate degree."),
     h4("How big is the data set?
        If it is a sub-set of a larger data set, how was the sub-set created?"),
-    p("The college major dataset contains 79,668,7996 observations and 11 attributes,
-      and the graduate students dataset contains 59,233,874 observations and
-      22 attributes."),
+    p("The college major dataset contains 79,668,7996 observations and 11
+    attributes,and the graduate students dataset contains 59,233,874
+    observations and 22 attributes."),
     h4("If the data set represents people,
        who has been included and who has been excluded?"),
     p("Undergraduate and graduate students were included.")
-    )
   )
+)
 
+# The page that contains the conclusion of our project based on our analysis
+# of the data
 conclusion_page <- tabPanel(
   "Conclusion",
   titlePanel(h1("Conclusion", align = "center")),
   fluidPage(
-    h4("Is there an income disparity between different majors or major subjects?"),
+    h4("Is there an income disparity between different majors or major
+       subjects?"),
     p("Yes"),
-    h4("Is there an employment disparity between different majors or major subjects?"),
+    h4("Is there an employment disparity between different majors or major
+       subjects?"),
     p("Yes"),
     h4("Limitations"),
-    p("There are other potential confounding variables. For example, it has been well 
-      documented that there is a wage gap between men and women, so a major that is 
-      predominately male would most likely have a greater average income than the same 
-      exact major if it were majority female. Additionally, race and national origin has 
-      a similar effect, as some races are more likely to get paid more many or hired then 
-      other races. The hope is that using a large dataset would help eliminate these 
-      effects, but if a major has a different race composition than another major, it 
-      could have an effect on the results."),
+    p("There are other potential confounding variables. For example, it has
+    been well documented that there is a wage gap between men and women, so
+    a major that is predominately male would most likely have a greater
+    average income than the same exact major if it were majority female.
+    Additionally, race and national origin has a similar effect, as some
+    races are more likely to get paid more many or hired then other races.
+    The hope is that using a large dataset would help eliminate these effects,
+    but if a major has a different race composition than another major, it
+    could have an effect on the results."),
     h4("Areas for More Research or Analysis"),
-    p("Evaluating and analyzing different majors while taking into account the various 
-      confounding factors. Additionally, looking at potential market fluctuations that 
-      influence the supply and demand of specific jobs or majors. These fluctuations could 
-      come from many different trends including technology, improved education, global 
-      warming, and other social, scientific, and political trends.")
+    p("Evaluating and analyzing different majors while taking into account the
+    various confounding factors. Additionally, looking at potential market
+    fluctuations that influence the supply and demand of specific jobs
+    or majors. These fluctuations could come from many different trends
+    including technology, improved education, global warming, and other
+    social, scientific, and political trends.")
   )
 )
 
+# creates the navigation bar at the top of the page with all the pages that
+# were created above
 ui <- navbarPage(
   "Hierarchy in College Majors",
   home_page,
@@ -154,18 +179,24 @@ ui <- navbarPage(
   conclusion_page
 )
 
+# displays the plot shown in our visualizations page that takes in input
+# from the user on which majors they'd like to analyze and displays it on
+# the bar graph
 server <- function(input, output) {
-  output$majorPlot <- renderPlot({
+  output$major_plot <- renderPlot({
     categories <- input$major_category
-    categories[length(categories) + 1] = "All Categories"
+    categories[length(categories) + 1] <- "All Categories"
     plotdf <- df[match(categories, df$Major_category), ]
-    
-    ggplot() + geom_bar(aes(y = unemploymentRate, x = category_abbr, fill = as.double(total)),
+
+    ggplot() + geom_bar(aes(y = unemploymentRate, x = category_abbr,
+                        fill = as.double(total)),
                         data = plotdf, stat = "identity") +
       geom_text(data = plotdf, aes(x = category_abbr, y = unemploymentRate,
-                label = paste0(unemploymentRate, "%")), size = 5, color = "white",
+                label = paste0(unemploymentRate, "%")), size = 5,
+                color = "white",
                 vjust = 1.5) +
-      labs(x = "Major Category", y = "Unemployment Rate", fill = "Total Students in Major") +
+      labs(x = "Major Category", y = "Unemployment Rate",
+           fill = "Total Students in Major") +
       ggtitle("Comparison of Majors by Unemployment Rate")
   })
 }
