@@ -54,7 +54,10 @@ home_page <- tabPanel(
       graph that compares the incomes of each major category that you choose
       with each other. We also used pie charts for each individual major
       category that compares employment and unemployment rates after graduation
-      within that category.")
+      within that category."),
+    p("Read more about our project below:"),
+    tags$a(href = "https://github.com/WeiDuan816/project-college-major/wiki", 
+           "Link")
     )
 )
 
