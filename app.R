@@ -165,7 +165,7 @@ conclusion_page <- tabPanel(
       are reliable in the job market. The jobs with high unemployement rates (arts, 
       communications and journalism, interdisciplinary, social science, and psychology) 
       are typically thought of as lower hierarchy majors. These all have unemployment 
-      rates at least 0.76% higher than the average. This is at least a 18% high chance 
+      rates at least 0.76% higher than the average. This is at least a 18% higher chance 
       of being unemployed. Interdisciplinary, as the highest unemployment, is 2.4% 
       above the average, which is a 57% increase. However, the jobs with low 
       unemployment rates (agriculture, education, health, physical sciences) aren't 
