@@ -158,7 +158,21 @@ conclusion_page <- tabPanel(
   fluidPage(
     h4("Is there an income disparity between different majors or major
        subjects?"),
-    p("Yes"),
+    p("Yes, as shown in our second data visualization, income disparity exists
+    between majors. Just as representation to how big this disparity is, 
+    the major with the largest average income, Engineering, makes
+    $34,759 more on average than the major with the smallest average income,
+    Interdisciplinary Studies. Our visualization also shows that, generally,
+    the stereotypes of certain majors (especially those in STEM or Business)
+    making more money than Humanities and Arts majors does actually hold true.
+    Humanities and Arts majors have amongst the lowest ranking average incomes,
+    which are $43,000 and $43,525 respectively. This is a huge difference from
+    majors such as Business or Physical Sciences which made $60,615 and
+    $62,400 on average respectively. Based on the data, these majors with
+    higher average incomes seem to also be where the most students are,
+    with Business being the most popular major. This suggests that students
+    have a tendency to choose majors that promise financial stability.")
+,
     h4("Is there an employment disparity between different majors or major
        subjects?"),
     p("Yes, and it halfway goes along with the per-conceived notions of which majors 
