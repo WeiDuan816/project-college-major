@@ -183,14 +183,33 @@ aboutme_page <-tabPanel(
   "About Us", 
   titlePanel(h1(align = "center")),
   fluidPage(
-    h4("Matthew's Goals"),
-    p("I want to see how our team can use R and our other resources to take a dataset and create a complete analysis and report. It will be exciting to see a project that we make from start to finish. My personal roles involve ideation, communication/planning, and helping write code to analyze the data."),
+    h4("Matthew Leviten"),
+    p("Sophmore, Business Major"),
+    p("I want to see how our team can use R and our other resources to take 
+      a dataset and create a complete analysis and report. It will be exciting 
+      to see a project that we make from start to finish. My personal roles 
+      involve ideation, communication/planning, and helping write code to 
+      analyze the data. In terms of the actual coding, I helped a lot with the 
+      data visualizations, espcially concerning how to make the graphs and how to 
+      clean and alter the data so it could be easily represented. I also 
+      worked on the input widgets and the styling of the visualizations page. 
+      Finally, I helped our team come to conclusions that we could all agree 
+      was represented by the data."),
     h4("Wei's Goals"),
-    p("my personal goal is to learn how we can use R as well as other tools to produce an analysis, given the necessary data; how we can make the analysis visual and easy-understanding. My role is to help the team to achieve our goal by writing codes, giving feedback and making improvements."),
+    p("my personal goal is to learn how we can use R as well as other tools 
+      to produce an analysis, given the necessary data; how we can make the 
+      analysis visual and easy-understanding. My role is to help the team 
+      to achieve our goal by writing codes, giving feedback and making improvements."),
     h4("Katie's Goals"),
-    p("I want to learn how we can use the R language in order to create an interesting way to look at this dataset. My role it to help bring out ideas together into one cohesive project and write code and help overall design an interesting project."),
+    p("I want to learn how we can use the R language in order to create an 
+      interesting way to look at this dataset. My role it to help bring out 
+      ideas together into one cohesive project and write code and help overall 
+      design an interesting project."),
     h4("Julianne's Goals"),
-    p("My personal goal is to be able to analyze data and create data visualizations that are both clear and concise. My role is to contribute to the group assignment through writing code and also helping with the appearance of our final project.")
+    p("My personal goal is to be able to analyze data and create data 
+      visualizations that are both clear and concise. My role is to contribute 
+      to the group assignment through writing code and also helping with the 
+      appearance of our final project.")
   )                    
 )
 
@@ -226,7 +245,7 @@ server <- function(input, output) {
       ggtitle("Comparison of Majors by Unemployment Rate") +
         theme(legend.position="bottom") +
         theme(plot.title = element_text(hjust = 0.5, size = 24)) +
-        theme(legend.key.size = unit(1.5, "cm"))
+        theme(legend.key.size = unit(1, "cm"))
     }else{
       ggplot() + geom_bar(aes(y = avgMedian, x = category_abbr,
                               fill = as.double(total)),
@@ -239,7 +258,7 @@ server <- function(input, output) {
              fill = "Total Students in Major") +
         ggtitle("Comparison of Majors by Income") + theme(legend.position="bottom") +
         theme(plot.title = element_text(hjust = 0.5, size = 24)) +
-        theme(legend.key.size = unit(1.5, "cm"))
+        theme(legend.key.size = unit(1, "cm"))
     }
   })
 }
