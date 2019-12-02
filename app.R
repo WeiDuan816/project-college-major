@@ -19,12 +19,14 @@ df <- read.csv("major.csv", stringsAsFactors = FALSE) %>%
             unemployed = sum(Unemployed),
             avgMedian = round(mean(as.double(Median)), 0)
             )
-df[nrow(df) + 1, ] <- c("All Categories", sum(df$total), sum(df$employed),
-                       sum(df$employedFull), sum(df$unemployed),
-                       round(mean(df$avgMedian), 0))
 df <- mutate(df, unemploymentRate = round(as.double(unemployed) /
                                             as.double(total), 4) * 100) %>%
   mutate(category_abbr = word(Major_category, 1))
+df[nrow(df) + 1, ] <- c("All Categories", round(mean(df$total), 0), sum(df$employed),
+                        sum(df$employedFull), sum(df$unemployed),
+                        round(mean(df$avgMedian), 0),
+                        unemploymentRate = round(sum(df$unemployed) / sum(df$total), 4) * 100,
+                        "All")
 
 # creates the home page displayed on the application that includes
 # a brief introduction to our project
