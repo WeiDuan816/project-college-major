@@ -196,10 +196,15 @@ aboutme_page <-tabPanel(
       Finally, I helped our team come to conclusions that we could all agree 
       was represented by the data."),
     h4("Wei's Goals"),
-    p("my personal goal is to learn how we can use R as well as other tools 
-      to produce an analysis, given the necessary data; how we can make the 
+    p("Senior, Economics Major"),
+    p("My personal goal is to learn how we can use R as well as other tools
+      to produce an analysis, given the necessary data; how we can make the
       analysis visual and easy-understanding. My role is to help the team 
-      to achieve our goal by writing codes, giving feedback and making improvements."),
+      to achieve our goal by writing codes, giving feedback and making
+      improvements. For this project, I helped the team with building the data
+      page and adding information about our dataset. I also helped to debug and
+      fix some of the ploting problems. I mainly contributed to organizing and
+      updating most of our works and progress to the GitHub wiki page."),
     h4("Katie's Goals"),
     p("I want to learn how we can use the R language in order to create an 
       interesting way to look at this dataset. My role it to help bring out 
