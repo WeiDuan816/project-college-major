@@ -95,7 +95,12 @@ visualization_page <- tabPanel(
       the data major surrounding majors because they are continous (income),
       and rates (employment). However, the rates can be converted into
       continuous variables by multiplying the rate by the total number of
-      people in a major.")
+      people in a major."),
+      p("*The median for the 'All Categories' aggregate was found by using the average of 
+        all the medians."),
+      p("**The total people (fill color) in the 'All Categories' major is the average 
+        number of people in each major (total people / number of majors) so that the 
+        fill color better compares the specific majors to the overall average.")
     )
   )
 )
@@ -156,6 +161,23 @@ conclusion_page <- tabPanel(
     p("Yes"),
     h4("Is there an employment disparity between different majors or major
        subjects?"),
+    p("Yes, and it halfway goes along with the per-conceived notions of which majors 
+      are reliable in the job market. The jobs with high unemployement rates (arts, 
+      communications and journalism, interdisciplinary, social science, and psychology) 
+      are typically thought of as lower hierarchy majors. These all have unemployment 
+      rates at least 0.76% higher than the average. This is at least a 18% high chance 
+      of being unemployed. Interdisciplinary, as the highest unemployment, is 2.4% 
+      above the average, which is a 57% increase. However, the jobs with low 
+      unemployment rates (agriculture, education, health, physical sciences) aren't 
+      typically thought of as higher hierarchy majors. Each are at least 0.49% below 
+      the average, which correlates to 11.6% overall decrease. The lowest unemployment 
+      rate is Health, which is 1.68% below the average, or 40% less. In fact, some 
+      majors that are typically thought of as safe (business, biology and life sciences, 
+      law, etc.) are all above the average. While total number of students in each major 
+      can explain this to an extent, employment is often based on the market supply and 
+      demand for people of certain skillsets, so it may be that some majors aren't 
+      as safe for employment as they seem."),
+    h4("Based on all the data, is there a heirarchy in college majors?"),
     p("Yes"),
     h4("Limitations"),
     p("There are other potential confounding variables. For example, it has
