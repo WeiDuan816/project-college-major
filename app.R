@@ -206,10 +206,17 @@ aboutme_page <-tabPanel(
       ideas together into one cohesive project and write code and help overall 
       design an interesting project."),
     h4("Julianne's Goals"),
-    p("My personal goal is to be able to analyze data and create data 
-      visualizations that are both clear and concise. My role is to contribute 
+    p("Sophomore, Informatics Major"),
+    p("My personal goal was to be able to analyze data and create data 
+      visualizations that are both clear and concise. My role was to contribute 
       to the group assignment through writing code and also helping with the 
-      appearance of our final project.")
+      appearance of our final project. In terms of what I did with the actual
+      code, I worked on the home page for the site, making sure that
+      people that visit the site get a clear understanding of what we're
+      trying to answer with the dataset we chose. I also participated in
+      group discussions on how we should plan out certain aspects of
+      our site and collaborated with other team members in making
+      decisions about the Visualizations page.")
   )                    
 )
 
