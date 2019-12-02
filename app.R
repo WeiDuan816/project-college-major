@@ -6,6 +6,7 @@ library(extrafont)
 library(scales)
 library(stringr)
 library(lintr)
+options(scipen = 999)
 
 # groups the database by major category, calculating new columns containing
 # information about the number of employed and unemployed to be used in the
@@ -15,10 +16,12 @@ df <- read.csv("major.csv", stringsAsFactors = FALSE) %>%
   summarize(total = sum(Total),
             employed = sum(Employed),
             employedFull = sum(Employed_full_time_year_round),
-            unemployed = sum(Unemployed)
+            unemployed = sum(Unemployed),
+            avgMedian = round(mean(as.double(Median)), 0)
             )
 df[nrow(df) + 1, ] <- c("All Categories", sum(df$total), sum(df$employed),
-                       sum(df$employedFull), sum(df$unemployed))
+                       sum(df$employedFull), sum(df$unemployed),
+                       round(mean(df$avgMedian), 0))
 df <- mutate(df, unemploymentRate = round(as.double(unemployed) /
                                             as.double(total), 4) * 100) %>%
   mutate(category_abbr = word(Major_category, 1))
@@ -208,7 +211,7 @@ server <- function(input, output) {
     categories <- input$major_category
     categories[length(categories) + 1] <- "All Categories"
     plotdf <- df[match(categories, df$Major_category), ]
-
+    if(input$data_category == "Employment Rates"){
     ggplot() + geom_bar(aes(y = unemploymentRate, x = category_abbr,
                         fill = as.double(total)),
                         data = plotdf, stat = "identity") +
@@ -218,7 +221,24 @@ server <- function(input, output) {
                 vjust = 1.5) +
       labs(x = "Major Category", y = "Unemployment Rate",
            fill = "Total Students in Major") +
-      ggtitle("Comparison of Majors by Unemployment Rate")
+      ggtitle("Comparison of Majors by Unemployment Rate") +
+        theme(legend.position="bottom") +
+        theme(plot.title = element_text(hjust = 0.5, size = 24)) +
+        theme(legend.key.size = unit(1.5, "cm"))
+    }else{
+      ggplot() + geom_bar(aes(y = avgMedian, x = category_abbr,
+                              fill = as.double(total)),
+                          data = plotdf, stat = "identity") +
+        geom_text(data = plotdf, aes(x = category_abbr, y = avgMedian,
+                                     label = paste0("$", avgMedian)), size = 5,
+                  color = "white",
+                  vjust = 1.5) +
+        labs(x = "Major Category", y = "Average Median Income",
+             fill = "Total Students in Major") +
+        ggtitle("Comparison of Majors by Income") + theme(legend.position="bottom") +
+        theme(plot.title = element_text(hjust = 0.5, size = 24)) +
+        theme(legend.key.size = unit(1.5, "cm"))
+    }
   })
 }
 
