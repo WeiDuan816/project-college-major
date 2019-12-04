@@ -59,7 +59,7 @@ home_page <- tabPanel(
       majors correlate to after-graduation employment opportunities, and how
       the income levels vary among these categories. To do this, we used a bar
       graph that compares the incomes of each major category that you choose
-      with each other. We also used pie charts for each individual major
+      with each other. We also used bar charts for each individual major
       category that compares employment and unemployment rates after graduation
       within that category."),
     p("Read more about our project below:"),
@@ -197,10 +197,10 @@ conclusion_page <- tabPanel(
     p("Yes, based on the analysis we performed on this data we hace concluded there is
       a heirarchy that applies to college majors. While it is obvious that in terms of income 
       there is a heirarchy, we have also found that there is heirarchy in terms of employment
-      rate and these programs with large income and employment then obtain teh concideration of
+      rate and these programs with large income and employment then obtain the consideration of
       better to the people concidering them. Popularity correlates with money and employment showing
       the general trend of heirarchy in college majors. For example there is a high income and large
-      about of students in business while in humanities and liberal arts there is the opposite effect."),
+      amount of students in business while in humanities and liberal arts there is the opposite effect."),
     h4("Limitations"),
     p("There are other potential confounding variables. For example, it has
     been well documented that there is a wage gap between men and women, so
