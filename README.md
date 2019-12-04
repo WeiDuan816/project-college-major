@@ -6,4 +6,4 @@ Therefore, this project aims to analyze how college majors correlate to employme
 
 Please see our [project proposal](https://github.com/WeiDuan816/project-college-major/wiki) for more information.
 
-Please see our application [here](https://info201-ab03.shinyapps.io/project-college-major/). 
+Please see our application [here](https://weiduan.shinyapps.io/project-college-major/).
